@@ -269,58 +269,58 @@ mixin DebugOverflowIndicatorMixin on RenderObject {
   /// debug build.
   ///
   /// See example code in [DebugOverflowIndicatorMixin] documentation.
-  void paintOverflowIndicator(
-    PaintingContext context,
-    Offset offset,
-    Rect containerRect,
-    Rect childRect, {
-    List<DiagnosticsNode>? overflowHints,
-  }) {
-    final RelativeRect overflow = RelativeRect.fromRect(containerRect, childRect);
+//   void paintOverflowIndicator(
+//     PaintingContext context,
+//     Offset offset,
+//     Rect containerRect,
+//     Rect childRect, {
+//     List<DiagnosticsNode>? overflowHints,
+//   }) {
+//     final RelativeRect overflow = RelativeRect.fromRect(containerRect, childRect);
 
-    if (overflow.left <= 0.0 &&
-        overflow.right <= 0.0 &&
-        overflow.top <= 0.0 &&
-        overflow.bottom <= 0.0) {
-      return;
-    }
+//     if (overflow.left <= 0.0 &&
+//         overflow.right <= 0.0 &&
+//         overflow.top <= 0.0 &&
+//         overflow.bottom <= 0.0) {
+//       return;
+//     }
 
-    final List<_OverflowRegionData> overflowRegions = _calculateOverflowRegions(overflow, containerRect);
-    for (final _OverflowRegionData region in overflowRegions) {
-      context.canvas.drawRect(region.rect.shift(offset), _indicatorPaint);
-      final TextSpan? textSpan = _indicatorLabel[region.side.index].text as TextSpan?;
-      if (textSpan?.text != region.label) {
-        _indicatorLabel[region.side.index].text = TextSpan(
-          text: region.label,
-          style: _indicatorTextStyle,
-        );
-        _indicatorLabel[region.side.index].layout();
-      }
+//     final List<_OverflowRegionData> overflowRegions = _calculateOverflowRegions(overflow, containerRect);
+//     for (final _OverflowRegionData region in overflowRegions) {
+//       context.canvas.drawRect(region.rect.shift(offset), _indicatorPaint);
+//       final TextSpan? textSpan = _indicatorLabel[region.side.index].text as TextSpan?;
+//       if (textSpan?.text != region.label) {
+//         _indicatorLabel[region.side.index].text = TextSpan(
+//           text: region.label,
+//           style: _indicatorTextStyle,
+//         );
+//         _indicatorLabel[region.side.index].layout();
+//       }
 
-      final Offset labelOffset = region.labelOffset + offset;
-      final Offset centerOffset = Offset(-_indicatorLabel[region.side.index].width / 2.0, 0.0);
-      final Rect textBackgroundRect = centerOffset & _indicatorLabel[region.side.index].size;
-      context.canvas.save();
-      context.canvas.translate(labelOffset.dx, labelOffset.dy);
-      context.canvas.rotate(region.rotation);
-      context.canvas.drawRect(textBackgroundRect, _labelBackgroundPaint);
-      _indicatorLabel[region.side.index].paint(context.canvas, centerOffset);
-      context.canvas.restore();
-    }
+//       final Offset labelOffset = region.labelOffset + offset;
+//       final Offset centerOffset = Offset(-_indicatorLabel[region.side.index].width / 2.0, 0.0);
+//       final Rect textBackgroundRect = centerOffset & _indicatorLabel[region.side.index].size;
+//       context.canvas.save();
+//       context.canvas.translate(labelOffset.dx, labelOffset.dy);
+//       context.canvas.rotate(region.rotation);
+//       context.canvas.drawRect(textBackgroundRect, _labelBackgroundPaint);
+//       _indicatorLabel[region.side.index].paint(context.canvas, centerOffset);
+//       context.canvas.restore();
+//     }
 
-    if (_overflowReportNeeded) {
-      _overflowReportNeeded = false;
-      _reportOverflow(overflow, overflowHints);
-    }
-  }
+//     if (_overflowReportNeeded) {
+//       _overflowReportNeeded = false;
+//       _reportOverflow(overflow, overflowHints);
+//     }
+//   }
 
-  @override
-  void reassemble() {
-    super.reassemble();
-    // Users expect error messages to be shown again after hot reload.
-    assert(() {
-      _overflowReportNeeded = true;
-      return true;
-    }());
-  }
-}
+//   @override
+//   void reassemble() {
+//     super.reassemble();
+//     // Users expect error messages to be shown again after hot reload.
+//     assert(() {
+//       _overflowReportNeeded = true;
+//       return true;
+//     }());
+//   }
+// }
